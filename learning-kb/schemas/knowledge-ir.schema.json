@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "learning-kb knowledge IR",
+  "type": "object",
+  "required": ["version", "items"],
+  "properties": {
+    "version": {"const": 1},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "sources", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^k_[a-z0-9_-]+$",
+                 "description": "稳定 id:跨批次同概念复用"},
+          "type": {"enum": ["concept", "formula", "example", "question", "fact"]},
+          "title": {"type": "string"},
+          "summary": {"type": "string", "description": "1-2 句概括"},
+          "detail": {"type": "string", "description": "完整但非碎片化的正文"},
+          "context": {"type": "string", "description": "原文摘录,保真引用"},
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["src_id"],
+              "properties": {
+                "src_id": {"type": "string"},
+                "block": {"type": "string"},
+                "ref": {"type": "string"}
+              }
+            }
+          },
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "links": {"type": "array", "items": {"type": "string"},
+                    "description": "关联条目 id(link 阶段填充)"},
+          "status": {"enum": ["proposed", "accepted", "updated",
+                               "duplicate", "conflict", "uncertain"]},
+          "merge_notes": {"type": "string", "description": "合并疑点记录"},
+          "external": {
+            "type": "object",
+            "description": "外部知识标记,非空即来自联网",
+            "properties": {
+              "url": {"type": "string"},
+              "trust": {"enum": ["official", "high", "low"]},
+              "note": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

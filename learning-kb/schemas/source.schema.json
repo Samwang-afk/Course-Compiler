@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "learning-kb source registry",
+  "type": "object",
+  "required": ["version", "sources"],
+  "properties": {
+    "version": {"const": 1},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "sha256", "title", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^src_[0-9]{4}$"},
+          "kind": {"enum": ["pdf", "docx", "pptx", "epub", "md", "txt",
+                             "audio", "video", "url", "chat", "table"]},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "original_path": {"type": "string", "description": "原始路径或 URL"},
+          "stored_file": {"type": "string", "description": "sources/ 下内容寻址文件名"},
+          "extracted_file": {"type": "string", "description": "extracted/<id>.md"},
+          "title": {"type": "string"},
+          "meta": {"type": "object", "description": "pages / duration_s / slide_count 等"},
+          "duplicate_of": {"type": "string", "description": "重复时的首个源 id"},
+          "status": {"enum": ["registered", "extracted", "parsed",
+                               "proposed", "merged", "compiled"]},
+          "created_at": {"type": "string"},
+          "updated_at": {"type": "string"}
+        }
+      }
+    }
+  }
+}

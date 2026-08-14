@@ -1,0 +1,9 @@
+openai-whisper
+pymupdf
+python-docx
+python-pptx
+ebooklib
+beautifulsoup4
+requests
+lxml
+pyyaml

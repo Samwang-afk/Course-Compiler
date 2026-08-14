@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "learning-kb brief",
+  "type": "object",
+  "required": ["version", "vault_path", "external_policy", "goal"],
+  "properties": {
+    "version": {"const": 1},
+    "vault_path": {"type": "string", "description": "Obsidian vault 绝对路径"},
+    "state_dir": {"type": "string", "description": ".learning-kb 状态目录,默认 vault/.learning-kb"},
+    "goal": {"type": "string", "description": "用户学习目标,一句话"},
+    "topic_scope": {"type": "string", "description": "主题范围,可空"},
+    "language": {"type": "string", "default": "zh", "description": "笔记主语言"},
+    "external_policy": {"enum": ["strict", "official", "yolo"], "default": "official"},
+    "vision": {"enum": ["yes", "no", "unknown"], "default": "unknown",
+               "description": "当前模型能否看图"},
+    "notes": {"type": "string", "description": "用户补充说明"}
+  }
+}

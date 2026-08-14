@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "learning-kb document IR",
+  "type": "object",
+  "required": ["version", "src_id", "blocks"],
+  "properties": {
+    "version": {"const": 1},
+    "src_id": {"type": "string", "pattern": "^src_[0-9]{4}$"},
+    "title": {"type": "string"},
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "order"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^b[0-9]+$"},
+          "type": {"enum": ["heading", "paragraph", "list", "table",
+                             "figure", "equation", "code", "quote"]},
+          "level": {"type": "integer", "description": "heading 层级,1-6"},
+          "text": {"type": "string"},
+          "order": {"type": "integer"},
+          "ref": {"type": "string", "description": "来源定位,如 p3 / s14 / 12:34"},
+          "asset": {"type": "string", "description": "figure 的资产相对路径"},
+          "ocr": {"type": "string", "description": "figure 的 OCR 文本,可空"},
+          "caption": {"type": "string"}
+        }
+      }
+    }
+  }
+}
